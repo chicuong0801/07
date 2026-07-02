@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📚 StudyNotes - Nền tảng chia sẻ tài liệu học tập cho sinh viên</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== PROGRESS BAR ===== -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ===== HEADER ===== -->
+<header id="header">
+    <div class="container header-inner">
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Study<span>Notes</span></span>
+        </div>
+        <nav class="nav-menu" id="navMenu">
+            <a href="#" class="active" data-page="home"><i class="fas fa-home"></i> Trang chủ</a>
+            <a href="#" data-page="my-docs"><i class="fas fa-folder-open"></i> Tài liệu của tôi</a>
+            <a href="#" data-page="community"><i class="fas fa-users"></i> Cộng đồng</a>
+            <a href="#" class="btn-upload" data-page="upload"><i class="fas fa-plus-circle"></i> Đăng tải</a>
+        </nav>
+        <div class="user-profile" id="userProfile">
+            <img src="https://ui-avatars.com/api/?name=Hoang+Chi+Cuong&background=6C63FF&color=fff&size=44" alt="Avatar" />
+            <span class="user-name">Hoàng Chí Cương</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="heroSection">
+    <div class="container hero-inner">
+        <div class="hero-text">
+            <span class="hero-badge"><i class="fas fa-rocket"></i> Nền tảng học tập số 1</span>
+            <h1>Kho tài liệu <span>khổng lồ</span> cho sinh viên</h1>
+            <p>Hàng ngàn tài liệu chất lượng cao, được chia sẻ bởi cộng đồng sinh viên <strong>Trường Đại học Đại Nam</strong>. Học tập thông minh hơn cùng StudyNotes!</p>
+            <div class="hero-actions">
+                <a href="#" class="btn-primary" id="exploreBtn"><i class="fas fa-search"></i> Khám phá ngay</a>
+                <a href="#" class="btn-secondary"><i class="fas fa-play-circle"></i> Xem video</a>
+            </div>
+            <div class="hero-stats">
+                <div><span id="statDocs">0</span> Tài liệu</div>
+                <div><span id="statUsers">0</span> Thành viên</div>
+                <div><span id="statRating">0</span> Đánh giá</div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="float-card c1"><i class="fas fa-file-pdf"></i> Toán cao cấp</div>
+            <div class="float-card c2"><i class="fas fa-code"></i> Lập trình C++</div>
+            <div class="float-card c3"><i class="fas fa-database"></i> Cơ sở dữ liệu</div>
+            <div class="float-card c4"><i class="fas fa-brain"></i> Trí tuệ nhân tạo</div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FILTER ===== -->
+<section class="filter-bar" id="filterBar">
+    <div class="container filter-inner">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Tìm kiếm tài liệu... (Ctrl+K)" />
+        </div>
+        <select id="subjectFilter">
+            <option value="">📚 Tất cả môn học</option>
+            <option value="Toán cao cấp">📐 Toán cao cấp</option>
+            <option value="Lập trình C++">💻 Lập trình C++</option>
+            <option value="Cơ sở dữ liệu">🗄️ Cơ sở dữ liệu</option>
+            <option value="Trí tuệ nhân tạo">🤖 Trí tuệ nhân tạo</option>
+            <option value="Mạng máy tính">🌐 Mạng máy tính</option>
+            <option value="Kinh tế vi mô">📊 Kinh tế vi mô</option>
+            <option value="Tiếng Anh">🇬🇧 Tiếng Anh</option>
+            <option value="Vật lý đại cương">⚛️ Vật lý đại cương</option>
+        </select>
+        <select id="yearFilter">
+            <option value="">📅 Tất cả năm</option>
+            <option value="2024-2025">2024 - 2025</option>
+            <option value="2023-2024">2023 - 2024</option>
+            <option value="2022-2023">2022 - 2023</option>
+        </select>
+        <select id="sortFilter">
+            <option value="newest">🆕 Mới nhất</option>
+            <option value="views">👁️ Xem nhiều nhất</option>
+            <option value="rating">⭐ Đánh giá cao</option>
+        </select>
+        <button class="btn-reset" id="resetFilter"><i class="fas fa-undo"></i> Đặt lại</button>
+    </div>
+</section>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="container main-section">
+    <!-- ===== PAGE: HOME ===== -->
+    <div id="page-home" class="page-content active">
+        <div class="section-header">
+            <div>
+                <h2>📖 Tài liệu nổi bật</h2>
+                <span class="doc-count" id="docCount">0 tài liệu</span>
+            </div>
+            <div class="view-toggle">
+                <button class="active" data-view="grid"><i class="fas fa-th"></i></button>
+                <button data-view="list"><i class="fas fa-list"></i></button>
+            </div>
+        </div>
+        <div class="doc-grid" id="docGrid"></div>
+        <div class="load-more">
+            <button id="loadMoreBtn"><i class="fas fa-sync-alt"></i> Xem thêm tài liệu</button>
+        </div>
+    </div>
+
+    <!-- ===== PAGE: MY DOCS ===== -->
+    <div id="page-my-docs" class="page-content">
+        <div class="section-header">
+            <div>
+                <h2>📂 Tài liệu của tôi</h2>
+                <span class="doc-count" id="myDocCount">0 tài liệu</span>
+            </div>
+            <button class="btn-upload-small" onclick="navigateTo('upload')">
+                <i class="fas fa-plus-circle"></i> Đăng tải mới
+            </button>
+        </div>
+        <div class="doc-grid" id="myDocGrid"></div>
+    </div>
+
+    <!-- ===== PAGE: COMMUNITY ===== -->
+    <div id="page-community" class="page-content">
+        <div class="section-header">
+            <div>
+                <h2>👥 Cộng đồng StudyNotes</h2>
+                <span class="doc-count" id="communityCount">0 thành viên</span>
+            </div>
+        </div>
+        
+        <!-- Community Stats -->
+        <div class="community-stats">
+            <div class="community-stat-card">
+                <i class="fas fa-users" style="color: var(--primary);"></i>
+                <div>
+                    <span class="stat-number" id="communityTotalUsers">0</span>
+                    <span class="stat-label">Thành viên</span>
+                </div>
+            </div>
+            <div class="community-stat-card">
+                <i class="fas fa-file-alt" style="color: var(--secondary);"></i>
+                <div>
+                    <span class="stat-number" id="communityTotalDocs">0</span>
+                    <span class="stat-label">Tài liệu đã chia sẻ</span>
+                </div>
+            </div>
+            <div class="community-stat-card">
+                <i class="fas fa-star" style="color: #F39C12;"></i>
+                <div>
+                    <span class="stat-number" id="communityTotalRatings">0</span>
+                    <span class="stat-label">Đánh giá</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Giảng viên Khoa CNTT -->
+        <div class="lecturers-section">
+            <h3 style="margin: 32px 0 20px; font-size: 22px;">
+                <i class="fas fa-chalkboard-teacher" style="color: var(--primary);"></i> 
+                Giảng viên Khoa CNTT - Đại học Đại Nam
+            </h3>
+            <div class="lecturers-grid" id="lecturersGrid"></div>
+        </div>
+
+        <!-- Top Contributors -->
+        <h3 style="margin: 32px 0 20px; font-size: 22px;">🏆 Top sinh viên đóng góp</h3>
+        <div class="contributors-grid" id="contributorsGrid"></div>
+
+        <!-- Recent Activity -->
+        <h3 style="margin: 32px 0 20px; font-size: 22px;">🔄 Hoạt động gần đây</h3>
+        <div class="activity-list" id="activityList"></div>
+    </div>
+
+    <!-- ===== PAGE: UPLOAD ===== -->
+    <div id="page-upload" class="page-content">
+        <div class="upload-container">
+            <div class="upload-header">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h2>Đăng tải tài liệu mới</h2>
+                <p>Chia sẻ tài liệu của bạn với cộng đồng sinh viên</p>
+            </div>
+            <form id="uploadForm" class="upload-form">
+                <div class="form-group">
+                    <label><i class="fas fa-heading"></i> Tiêu đề tài liệu *</label>
+                    <input type="text" id="uploadTitle" placeholder="Nhập tiêu đề tài liệu..." required />
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-align-left"></i> Mô tả *</label>
+                    <textarea id="uploadDesc" rows="4" placeholder="Mô tả chi tiết về tài liệu..." required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-book-open"></i> Môn học *</label>
+                        <select id="uploadSubject" required>
+                            <option value="">Chọn môn học</option>
+                            <option value="Toán cao cấp">📐 Toán cao cấp</option>
+                            <option value="Lập trình C++">💻 Lập trình C++</option>
+                            <option value="Cơ sở dữ liệu">🗄️ Cơ sở dữ liệu</option>
+                            <option value="Trí tuệ nhân tạo">🤖 Trí tuệ nhân tạo</option>
+                            <option value="Mạng máy tính">🌐 Mạng máy tính</option>
+                            <option value="Kinh tế vi mô">📊 Kinh tế vi mô</option>
+                            <option value="Tiếng Anh">🇬🇧 Tiếng Anh</option>
+                            <option value="Vật lý đại cương">⚛️ Vật lý đại cương</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-alt"></i> Năm học *</label>
+                        <select id="uploadYear" required>
+                            <option value="">Chọn năm học</option>
+                            <option value="2024-2025">2024 - 2025</option>
+                            <option value="2023-2024">2023 - 2024</option>
+                            <option value="2022-2023">2022 - 2023</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-file-upload"></i> File tài liệu *</label>
+                    <div class="file-drop-zone" id="fileDropZone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Kéo thả file vào đây hoặc <span>nhấn để chọn</span></p>
+                        <input type="file" id="uploadFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip" required />
+                    </div>
+                    <div id="fileInfo" style="display: none; margin-top: 12px; padding: 12px 16px; background: rgba(108,99,255,0.06); border-radius: var(--radius-sm);">
+                        <i class="fas fa-file-pdf" style="color: var(--primary);"></i>
+                        <span id="fileName">document.pdf</span>
+                        <span id="fileSize" style="color: var(--text-light); font-size: 13px; margin-left: 8px;"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-upload"></i> Đăng tải ngay
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container footer-inner">
+        <div class="footer-col">
+            <h3><i class="fas fa-graduation-cap"></i> Study<span>Notes</span></h3>
+            <p>Nền tảng chia sẻ tài liệu học tập hàng đầu cho sinh viên <strong>Trường Đại học Đại Nam</strong>. Cùng nhau học tập và phát triển!</p>
+            <div class="socials">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Liên kết</h4>
+            <a href="#" data-page="home" class="footer-nav-link">Trang chủ</a>
+            <a href="#" data-page="my-docs" class="footer-nav-link">Tài liệu của tôi</a>
+            <a href="#" data-page="community" class="footer-nav-link">Cộng đồng</a>
+            <a href="#" data-page="upload" class="footer-nav-link">Đăng tải</a>
+        </div>
+        <div class="footer-col">
+            <h4>Hỗ trợ</h4>
+            <a href="mailto:chicuong2007@gmail.com"><i class="fas fa-envelope"></i> chicuong2007@gmail.com </a>
+            <a href="tel:19001234"><i class="fas fa-phone"></i> 1900 1234</a>
+            <a href="#"><i class="fas fa-comment"></i> Chat với chúng tôi</a>
+        </div>
+        <div class="footer-col">
+            <h4>Địa chỉ</h4>
+            <p><i class="fas fa-map-marker-alt"></i> Trường Đại học Đại Nam</p>
+            <p><i class="fas fa-clock"></i> 8:00 - 22:00 hàng ngày</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 StudyNotes - Made with ❤️ by <strong>Hoàng Chí Cương</strong> - Khoa CNTT, Trường Đại học Đại Nam</p>
+    </div>
+</footer>
+
+<!-- ===== SCROLL TOP ===== -->
+<button id="scrollTopBtn"><i class="fas fa-arrow-up"></i></button>
+
+<!-- ===== TOAST CONTAINER ===== -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
